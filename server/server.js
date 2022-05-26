@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { readdirSync } = require("fs");
 const morgan = require("morgan");
 
 require("dotenv").config();
@@ -13,9 +14,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // Routes
-app.get("/", (_, res) => {
-  res.send("Hello world");
-});
+readdirSync("./routes").map((r) => app.use("/api/", require(`./routes/${r}`)));
 
 // Application Port
 const port = process.env.APP_PORT || 8000;
