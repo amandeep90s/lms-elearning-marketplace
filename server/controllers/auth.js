@@ -1,4 +1,5 @@
 // Register user controller
 export const register = (req, res) => {
-  res.send("Hello aman!");
+  console.log(req.body);
+  res.json("register user");
 };
