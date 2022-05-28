@@ -5,9 +5,9 @@ import {SyncOutlined} from "@ant-design/icons";
 import Link from "next/link"
 
 const Register = () => {
-    const [name, setName] = useState("Aman");
-    const [email, setEmail] = useState("aman@gmail.com");
-    const [password, setPassword] = useState("Aman@1234");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (event) => {
@@ -17,6 +17,7 @@ const Register = () => {
             await axios.post(`/api/register`, {
                 name, email, password,
             });
+            resetForm();
             setLoading(false);
             toast.success("Registration successful. Please login.");
         } catch (err) {
@@ -24,6 +25,12 @@ const Register = () => {
             toast.error(err.response.data);
         }
     };
+
+    const resetForm = () => {
+        setName("");
+        setEmail("");
+        setPassword("");
+    }
     return (<>
         <h1 className="py-5 text-white text-center header__cta">Register</h1>
 
