@@ -1,21 +1,30 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {SyncOutlined} from "@ant-design/icons";
-import Link from "next/link"
+import Link from "next/link";
+import {Context} from "../context"
+
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
+    // state
+    const {state, dispatch} = useContext(Context);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
         try {
-            await axios.post(`/api/login`, {
+            const {data} = await axios.post(`/api/login`, {
                 email, password,
             });
+            dispatch({
+                type: "LOGIN",
+                payload: data
+            })
             setLoading(false);
         } catch (err) {
             setLoading(false);
