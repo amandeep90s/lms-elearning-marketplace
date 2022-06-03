@@ -42,7 +42,6 @@ const Login = () => {
       window.localStorage.setItem("user", JSON.stringify(data));
       // redirect
       await router.push("/");
-      // setLoading(false);
     } catch (err) {
       setLoading(false);
       toast.error(err.response.data);
