@@ -60,7 +60,7 @@ export const login = async (req, res) => {
 };
 
 // Logout user controller
-export const logout = async (req, res) => {
+export const logout = async (_, res) => {
   try {
     res.clearCookie("token");
     return res.json({ message: "Sign-out success" });
@@ -73,10 +73,9 @@ export const logout = async (req, res) => {
 // Get current logged-in user details controller
 export const currentUser = async (req, res) => {
   try {
-      const user = await User.findById(req.user._id).select("-password").exec();
-      console.log(user);
-      res.json(user);
-  } catch (error) {
-    console.error(error);
+    const user = await User.findById(req.auth._id).select("-password").exec();
+    return res.json(user);
+  } catch (err) {
+    return res.status(500).send("Error. Try again.");
   }
 };
