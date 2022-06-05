@@ -46,7 +46,7 @@ const Provider = ({ children }) => {
         return new Promise((_, reject) => {
           axios
             .get("/api/logout")
-            .then(async (_) => {
+            .then(async () => {
               dispatch({ type: "LOGOUT" });
               window.localStorage.removeItem("user");
               await router.push("/login");
